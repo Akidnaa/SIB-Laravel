@@ -9,6 +9,11 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $table = 'authors'; // nama tabel
-    protected $fillable = ['name', 'photo', 'bio'];
+    protected $table = 'authors';
+
+    protected $fillable = [
+        'name',
+        'photo',
+        'bio',
+    ];
 }
