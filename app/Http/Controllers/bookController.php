@@ -52,7 +52,7 @@ class BookController extends Controller
             $path = $image->store('books', 'public');
         }
 
-        // 4. simpan data ke database
+        // 4. insert data
         $book = Book::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -62,6 +62,7 @@ class BookController extends Controller
             'author_id' => $request->author_id,
         ]);
 
+        //5. response
         return response()->json([
             'success' => true,
             'message' => 'Resource added succesfully!',
