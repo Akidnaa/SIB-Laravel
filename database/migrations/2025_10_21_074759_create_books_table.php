@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->integer('stock')->default(0);
             $table->string('cover_photo')->nullable();
             $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade');
             $table->timestamps();
         });
     }
