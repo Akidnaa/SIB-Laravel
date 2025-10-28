@@ -61,6 +61,7 @@ class BookController extends Controller
             'stock' => $request->stock,
             'cover_photo' => $path ?? null,
             'author_id' => $request->author_id,
+            'genre_id' => $request->genre_id,
         ]);
 
         //5. response
@@ -113,7 +114,7 @@ class BookController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => validator->error()
+                'message' => $validator->error()
             ], 422);
         }
 
@@ -123,16 +124,17 @@ class BookController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'stock' =>$request->stock,
-            'author_id' => $request->author_id, 
+            'author_id' => $request->author_id,
+            'genre_id' => $request->genre_id,  
         ];
 
         //4. handle image (upload & delete image)
         if ($request->hasFile('cover_photo')) {
             $image = $request->file('cover_photo');
-            $imahe->store('books', 'public');
+            $image->store('books', 'public');
 
             if ($book->cover_photo) {
-                Storage::disk('public')->delete('books/' .$book->cover_photo);
+                Storage::disk('public')->delete($book->cover_photo);
             }
 
             $data['cover_photo'] = $image->hashName();
@@ -143,7 +145,7 @@ class BookController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Resource added successfully!',
+            'message' => 'Resource updated successfully!',
             'data' => $book
         ], 200);
     }
